@@ -108,6 +108,7 @@ def map_overlap(
     return df
 
 def map_gliph(df_in, df_out, groupby, key):
+    bio_id = ['TcRb', 'V', 'J', 'TcRa', 'Sample']
     # groupby specificity groups
     gb =  df_out.groupby(groupby)
     # categories in key

@@ -1,0 +1,32 @@
+pre_top_8 = {
+    'TRA:CAVRGYSGAGSYQLTF;TRB:CASSLTGNYNEQFF': '#1f77b4', 
+    'TRA:CAVRDQAGTALIF;TRB:CASRRVNWESTDTQYF': '#ff7f0e', 
+    'TRA:CAVKESGYSTLTF;TRB:CSLTGGGRYNEQFF': '#279e68', 
+    'TRA:CALRRGAGGGNKLTF;TRB:CASSQSLTGEEQYF': '#d62728', 
+    'TRA:CIAYHGQNFVF;TRB:CASSGGQGMGNTQYF': '#aa40fc', 
+    'TRA:CLVGDNNNDMRF;TRB:CASSYLQGARTDTQYF': '#8c564b', 
+    'TRA:CAVRLFISNFGNEKLTF;TRB:CASSLTSSYNSPLHF': '#b5bd61', 
+    'TRA:CAEGESNDYKLSF;TRB:CASSAGGNTGELFF': '#e377c2'}
+
+post_top_8 = {
+    'TRA:CAESNWDYKLSF;TRB:CAWSGDSGGSDSYEQYF': '#17becf', 
+    'TRA:CAPSGNTPLVF;TRB:CASSPWSYRDTEAFF': '#ffbb78', 
+    'TRA:CAASRLGEIAVWSRDP;TRB:CAWSGDSGGSDSYEQYF': '#aec7e8', 
+    'TRA:CAAQMDSSYKLIF;TRB:CASSPRGPEQYF': '#98df8a', 
+    'TRA:CAVRDQAGTALIF;TRB:CASRRVNWESTDTQYF': '#ff7f0e', 
+    'TRA:CAVGGGGYQKVTF;TRB:CASSELFGSEDIGIEDTF': '#ff9896', 
+    'TRA:CAFLDYGQNFVF;TRB:CASNNGGGQPQHF': '#c5b0d5', 
+    'TRA:CAVNLNTGGFKTIF;TRB:CATSRRNSGANVLTF': '#c49c94'}
+
+csf_palette = {'1':'#6A51A3', '2':'#238B45','3':'#D94701', '4':'#CE1256'}
+pbmc_palette = {'1':'#636363', '2':'#DE2D26','3':'#3182BD', '4':'#A6BDDB'}
+tumor_palette = {'Pre': '#abd0e6', 'Post': '#3787c0'}
+csf_palette = {'CSF:'+k:v for k,v in csf_palette.items()}
+pbmc_palette = {'PB:'+k:v for k,v in pbmc_palette.items()}
+
+signal_noise_palette = {
+    'PB:noise': '#FB9A99', 
+    'PB:signal':'#E31A1C', 
+    'CSF:noise': '#CAB2D6', 
+    'CSF:signal': '#6A3D9A'}
+
