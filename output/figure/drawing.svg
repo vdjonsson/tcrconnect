@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="drawing.svg"
@@ -26,16 +27,16 @@
   </defs>
   <sodipodi:namedview
      inkscape:window-maximized="0"
-     inkscape:window-y="42"
-     inkscape:window-x="776"
-     inkscape:window-height="1198"
-     inkscape:window-width="1273"
+     inkscape:window-y="29"
+     inkscape:window-x="742"
+     inkscape:window-height="1317"
+     inkscape:window-width="1777"
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="in"
-     inkscape:cy="383.98547"
-     inkscape:cx="270.72909"
+     inkscape:cy="343.57936"
+     inkscape:cx="154.56155"
      inkscape:zoom="0.98994949"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -66,7 +67,17 @@
   <g
      id="layer1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1" />
+     inkscape:label="Layer 1">
+    <image
+       sodipodi:absref="C:\Users\rache\git\connectTCR\output\gliph\signal_tumor_freq\Frequency_sample_no_single.png"
+       xlink:href="../gliph/signal_tumor_freq/Frequency_sample_no_single.png"
+       y="18.486509"
+       x="13.37287"
+       width="58.489326"
+       height="25.4"
+       preserveAspectRatio="none"
+       id="image1186" />
+  </g>
   <g
      inkscape:label="Layer 2"
      id="layer2"
