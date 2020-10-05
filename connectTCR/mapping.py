@@ -108,11 +108,13 @@ def map_overlap(
     return df
 
 def map_gliph(df_in, df_out, groupby, key):
+    df_in = df_in.copy()
+    df_out = df_out.copy()
     bio_id = ['TcRb', 'V', 'J', 'TcRa', 'Sample']
     # groupby specificity groups
     gb =  df_out.groupby(groupby)
     # categories in key
-    comps = df_out[key].unique()
+    comps = df_in[key].unique()
     sample_in_gliph = collections.defaultdict(bool, (gb[key].value_counts()>0).to_dict())
     sample_count_per_gliph = gb[key].value_counts().to_dict()
     sample_count = df_out.set_index([groupby, key]).index.map(sample_count_per_gliph)
@@ -128,4 +130,4 @@ def map_gliph(df_in, df_out, groupby, key):
         df_in[comp] = df_in.set_index(bio_id).index.map(df_out.groupby(bio_id)[comp].any().to_dict())
         df_in[comp] = df_in[comp].fillna(False)
         
-    return
+    return df_in, df_out

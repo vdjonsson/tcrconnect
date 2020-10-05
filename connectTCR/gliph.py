@@ -1,6 +1,8 @@
 import os
 import re
 import itertools
+import collections
+
 import pandas as pd
 import numpy as np
 
@@ -46,7 +48,7 @@ def process_adaptive_bioidentity(path, sample, timepoints, exclude=[],
     df['J'] = df['Bioidentity'].apply(lambda x: x.split('+')[2]).apply(cleanVJ)
 
     # create empty TRA column
-    df['TcRa'] = np.nan
+    df['TcRa'] = "NA"
 
     # label sample name
     df['Sample'] = sample
@@ -72,9 +74,8 @@ def write_gliph_input(df_bio, outdir, name):
         sep='\t', header=False, index=False)
     return 
 
-def read_gliph_input(gliphdir, name, path=None):
+def read_gliph_input(path):
     columns = ['TcRb', 'V', 'J', 'TcRa', 'Sample', 'Freq'] 
-    path = os.path.join(gliphdir, 'gliph_input_{}.tsv'.format(name))
     df_in = pd.read_csv(path, sep='\t', header=None)
     df_in.columns = columns
     df_in['TcRa'] = df_in['TcRa'].fillna('')
@@ -105,3 +106,33 @@ def get_gliph_connections(df, groupby='pattern',
         values='connected', columns=['to'], aggfunc=np.any)
     df_connect = df_connect.reset_index()
     return df_connect
+
+def get_top_tra(df):
+    groupby=['TcRb', 'V', 'J', 'Sample']
+    top_tcr = df.loc[df.groupby(groupby).Freq.agg('idxmax')]
+    tra=top_tcr.set_index(groupby)['TcRa'].to_dict()
+    return tra
+
+def impute_tra(df , tra=None, bioid=['TcRb', 'V', 'J', 'TcRa', 'Sample']):
+    groupby=['TcRb', 'V', 'J', 'Sample']
+    
+    if tra is None:
+        # top_tcr = df.loc[df.groupby(groupby).Freq.agg('idxmax')]
+        # tra=top_tcr.set_index(groupby)['TcRa'].to_dict()
+        tra = get_top_tra(df)
+
+    tcrs = collections. defaultdict(int)
+
+    for i, row in df.iterrows():
+        key = [row[x]for x in bioid]
+        if row['TcRa'] == '':
+            trb = tuple([row[x]for x in groupby])
+            key[bioid.index('TcRa')] = tra[trb] # impute with most frequent tra
+            tcrs[tuple(key)] += row['Freq']
+        else:
+            tcrs[tuple(key)] += row['Freq']
+    mux = pd.MultiIndex.from_tuples(tcrs.keys())
+    df_imputed = pd.DataFrame(list(tcrs.values()), index=mux).reset_index()
+    df_imputed.columns = bioid +['Freq']
+    print('{} bioidentities imputed'.format(df.shape[0]-df_imputed.shape[0]))
+    return df_imputed

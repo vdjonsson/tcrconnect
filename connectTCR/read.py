@@ -55,8 +55,9 @@ def read_timeseries(indir, name, meta_ext='.meta.csv'):
     files = [indir+name+ext for ext in ['.npz', '.columns', '.index']]
     df = read_npz(*files)
     columns = df.columns
-    meta = pd.read_csv(indir+name+meta_ext, index_col='TRB')
+    meta = pd.read_csv(indir+name+meta_ext, index_col='TRB', dtype=str)
     df = pd.concat([df, meta], axis=1, sort=False)
     df.index.name = 'TRB'
+    df = df.reset_index()
     return df, columns
 

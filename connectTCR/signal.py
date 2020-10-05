@@ -75,17 +75,17 @@ def get_timepoints(df):
     """
     Extract timepoints and observational variables from dataframe column names
     """
-    inds = df.columns.str.match("C\d+D\d+")
+    inds = df.columns.str.match(r"C\d+D\d+")
     return df.columns[inds], df.columns[~inds]
 
 def tidy_timeseries(df):
-    timepoints, obs = get_timepoints(df)
+    _, obs = get_timepoints(df)
     if df.index.name == 'TRB':
         df_tidy = pd.melt(df.reset_index(), 
         id_vars=['TRB'] + obs.tolist(), 
         var_name='Timepoint', value_name='Frequency')
     elif 'TRB' in df.columns.values:
         df_tidy = pd.melt(df, 
-        id_vars=['TRB'] + obs.tolist(), 
+        id_vars=obs.tolist(), 
         var_name='Timepoint', value_name='Frequency')
     return df_tidy

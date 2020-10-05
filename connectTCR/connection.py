@@ -42,16 +42,22 @@ def flux(
         m = df.groupby([groupby,dest])[value_key].apply(func).to_frame().unstack().fillna(0)
         m.columns = m.columns.get_level_values(1)
         m = m.loc[groupby_order] # reorder
+        for col in [True, False]:
+            if col not in m.columns:
+                m[col] = 0
         m = m.rename(columns={False:'Not'+dest, True:dest})
         m = m.fillna(0)
-        del m.columns.name
-        del m.index.name
+        m.columns.name = None
+        m.index.name = None
         dfs.append(m)
         if show_df:
             print(m)
-        
+    
+    mat = pd.concat(dfs, axis=1)
+    print("Missing groups:", [x for x in groupby_order if x not in mat.index.values])
+    print("Missing destinations:", [x for x in destinations if x not in mat.columns.values])
     # entry i,j  is flux from i to j
-    mat = pd.concat(dfs, axis=1).loc[groupby_order, destinations].fillna(0)
+    mat = mat.loc[groupby_order, destinations].fillna(0)
     if show_mat:
         print(mat)
     return mat, dfs

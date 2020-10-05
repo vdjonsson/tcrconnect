@@ -1,4 +1,5 @@
 import os
+import re
 import glob
 import pandas as pd
 
@@ -11,6 +12,13 @@ def check_dir(path):
         return path + '/'
     else:
         return path
+
+def mkdir(path):
+    if not os.path.isdir(path):
+        os.system("mkdir -p "+path)
+
+def clean_variable(x, replacement='_'):
+    return re.sub('[^a-zA-Z0-9 \n\.]', replacement, x)
 
 def normalize(df, groupby, key, new_key):
     """
